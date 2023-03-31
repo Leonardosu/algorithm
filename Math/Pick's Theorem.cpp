@@ -10,44 +10,32 @@ https://cp-algorithms.com/geometry/picks-theorem.html
 #include <algorithm>
 
 using namespace std;
-typedef long long int ll;
-struct point
-{   
-    int x,y;    
-    point(){}
-    point(int _x,int _y)
-    {
-        x = _x,y = _y;
-    }
-
-    point operator-(const point &a)
-    {
+struct point {   
+    ll x, y;    
+    point(ll x=0,ll y=0) : x(x), y(y){}
+    point operator-(const point &a){
         return point(x-a.x,y-a.y);
     }
 };
 
 vector<point> p;
 
-ll cross(point v1,point v2)
-{
+ll cross(point v1, point v2) {
     return v1.x*v2.y - v1.y*v2.x;
 }
 
-ll area(vector<point>p)
-{
+ll area(vector<point> &p) {
     ll ans = 0;
-    for(int i=2;i<p.size();++i)
+    for(int i=2;i<sz(p);++i)
         ans += cross(p[i]-p[0],p[i-1]-p[0]);
     return ans;
 }
 
-ll boundary(vector<point> &A)
-{
-    int n = A.size();
+ll boundary(vector<point> &A) {
+    int n = sz(A);
     ll ats = n;
 
-    for(int i=0; i<n; i++)
-    {
+    for(int i=0; i<n; i++) {
         ll dx = (A[i].x - A[(i+1)%n].x);
         ll dy = (A[i].y - A[(i+1)%n].y);
         ats+=abs(__gcd(dx,dy)) - 1;
@@ -55,8 +43,7 @@ ll boundary(vector<point> &A)
     return ats;
 }
 
-int main()
-{
+int main() {
     int n;
     cin>>n;
     p.resize(n);
